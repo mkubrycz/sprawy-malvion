@@ -28,19 +28,19 @@
 				wczytane sprawy: {{results.length ? results.length : "0"}}
 			</div>
 		</div>
-		<ul>
+		<ul class="list">
 			<li ng-repeat="case in cases | filter:x as results">
 				<div class="master">
-					<div class="id"><span>{{ case.Id }}</span></div>
-					<button ng-click="toggle()">szczegóły</button>
+					<div class="id"><div>{{ case.Id }}</div></div>
+					<button ng-click="visible = !visible">szczegóły</button>
 				</div>
 				<div class="detail" ng-show="visible" ng-repeat="(key, value) in cases[$index]">
-					<span>{{ key }} : {{ value === null ? "Brak danych" : value }}</span>
+					<div>{{ key }} : {{ value === null ? "Brak danych" : value }}</div>
 				</div>
 			</li>
-			<li ng-if="results.length == 0">
+			<h1 class="noresults" ng-if="results.length == 0">
 				brak wyników...
-			</li>
+			</h1>
 		</ul>
 	</div>
 
