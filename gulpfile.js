@@ -1,14 +1,14 @@
 // variables setup
 var gulp = require('gulp'),
   cleanCSS = require('gulp-clean-css'),
-  uglify = require('gulp-uglify'),
   del = require('del'),
   rename = require('gulp-rename'),
   jshint = require('gulp-jshint'),
   plumber = require('gulp-plumber'),
   sass = require('gulp-ruby-sass'),
   concat = require('gulp-concat'),
-  connect = require('gulp-connect');
+  connect = require('gulp-connect'),
+  ngmin = require('gulp-ngmin');
 
 // gulp tasks declaration
 
@@ -17,28 +17,28 @@ gulp.task('style', function() {
 	.src('dev/css/*.css')
 	.pipe(cleanCSS())
 	.pipe(rename({suffix: '.min'}))
-	.pipe(gulp.dest('assets/css'))
+	.pipe(gulp.dest('app/css'))
 })
 
 gulp.task('script', function() {
 	return gulp
 	.src('dev/js/*.js')
 	.pipe(plumber())
-	.pipe(concat('*.js'))
-	.pipe(uglify())
+	//.pipe(concat('main.js'))
+	.pipe(ngmin())
 	.pipe(jshint())
 	.pipe(rename({suffix: '.min'}))
-	.pipe(gulp.dest('assets/js'))
+	.pipe(gulp.dest('app/js'))
 });
 
 gulp.task('sass', function() {
 	return sass('dev/scss/*.scss', {style: 'compressed'})
 	.pipe(rename({suffix: '.min'}))
-	.pipe(gulp.dest('assets/css'))
+	.pipe(gulp.dest('app/css'))
 });
 
 gulp.task('clean', function() {
-	del(['assets/css/*.min.css', 'assets/js/*.min.js']).then(paths => {
+	del(['app/css/*.min.css', 'app/js/*.min.js']).then(paths => {
 		console.log('Files and folders that were deleted:\n', paths.join('\n'));
 	});
 });
@@ -62,7 +62,7 @@ gulp.task('live', function() {
 gulp.task('watch', function() {
 	gulp.watch('dev/scss/*.scss', ['sass']);
 	gulp.watch('dev/js/*.js', ['script']);
-	gulp.watch(['assets/css/*.css', 'app/*.html', 'assets/js/*.min.js'], ['live']);
+	gulp.watch(['app/css/*.css', 'app/*.html', 'app/js/*.min.js'], ['live']);
 });
 
 // combined tastks, call 'gulp'	

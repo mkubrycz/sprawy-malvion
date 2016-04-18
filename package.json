@@ -30,6 +30,7 @@
     "gulp-connect": "^3.2.2",
     "gulp-jshint": "^2.0.0",
     "gulp-live-server": "0.0.29",
+    "gulp-ngmin": "^0.3.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.0.6",

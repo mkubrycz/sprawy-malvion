@@ -4,17 +4,17 @@
 	<meta charset="UTF-8">
 	<title>:8080</title>
 
-	<link rel="stylesheet" href="../assets/css/main.min.css">
+	<link rel="stylesheet" href="css/main.min.css">
 
 	<script src="../node_modules/angular/angular.js"></script>
-	<script src="../assets/js/main.js"></script>
+	<script src="js/main.min.js"></script>
 </head>
 <body ng-controller="CasesListCtrl">
-	<div>klasa!</div>
+	<div>SPRAWY</div>
 
 	<ul>
 		<li ng-repeat="case in cases">
-			<span>{{ case.Id }}</span>	
+			<span>Sprawa nr: {{ case.Id }}</span>	
 		</li>
 	</ul>
 
