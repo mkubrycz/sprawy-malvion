@@ -4,19 +4,45 @@
 	<meta charset="UTF-8">
 	<title>:8080</title>
 
+	<link href='https://fonts.googleapis.com/css?family=Lobster|Arimo' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/main.min.css">
 
 	<script src="../node_modules/angular/angular.js"></script>
 	<script src="js/main.min.js"></script>
 </head>
-<body ng-controller="CasesListCtrl">
-	<div>SPRAWY</div>
+<body ng-app="casesApp">
+	
+	<div ng-controller="CasesListCtrl">
+		<!-- HEADER HEADER HEADER HEADER HEADER HEADER -->
+		<div class="header">
+			<h1>Sprawy</h1>
+			<h2>aplikacja dla Malvion</h2>
+			<button ng-click="loadCases()">Wczytaj dane</button>
+		</div>
+		
+		<!-- MASTER - DETAIL MASTER - DETAIL MASTER - DETAIL -->
 
-	<ul>
-		<li ng-repeat="case in cases">
-			<span>Sprawa nr: {{ case.Id }}</span>	
-		</li>
-	</ul>
+		<div class="table-head">
+			<input type="search" ng-model="x" placeholder="filtruj sprawy..." aria-label="filtr spraw" />
+			<div class="count">
+				wczytane sprawy: {{results.length ? results.length : "0"}}
+			</div>
+		</div>
+		<ul>
+			<li ng-repeat="case in cases | filter:x as results">
+				<div class="master">
+					<div class="id"><span>{{ case.Id }}</span></div>
+					<button ng-click="toggle()">szczegóły</button>
+				</div>
+				<div class="detail" ng-show="visible" ng-repeat="(key, value) in cases[$index]">
+					<span>{{ key }} : {{ value === null ? "Brak danych" : value }}</span>
+				</div>
+			</li>
+			<li ng-if="results.length == 0">
+				brak wyników...
+			</li>
+		</ul>
+	</div>
 
 
 </body>
