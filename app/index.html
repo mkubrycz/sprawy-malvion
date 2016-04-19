@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>:8080</title>
 
-	<link href='https://fonts.googleapis.com/css?family=Lobster|Arimo' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lobster|Merriweather:700,900' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/main.min.css">
 
 	<script src="../node_modules/angular/angular.js"></script>
@@ -12,38 +12,55 @@
 </head>
 <body ng-app="casesApp">
 	
-	<div ng-controller="CasesListCtrl">
-		<!-- HEADER HEADER HEADER HEADER HEADER HEADER -->
-		<div class="header">
-			<h1>Sprawy</h1>
-			<h2>aplikacja dla Malvion</h2>
-			<button ng-click="loadCases()">Wczytaj dane</button>
-		</div>
-		
-		<!-- MASTER - DETAIL MASTER - DETAIL MASTER - DETAIL -->
+	<div class="wrapper" ng-controller="CasesListCtrl">
 
-		<div class="table-head">
-			<input type="search" ng-model="x" placeholder="filtruj sprawy..." aria-label="filtr spraw" />
-			<div class="count">
-				wczytane sprawy: {{results.length ? results.length : "0"}}
+		<!-- HEADER HEADER HEADER HEADER HEADER HEADER -->
+
+		<div class="header">
+			<div>
+				<h1>Sprawy</h1>
+				<h2>aplikacja dla Malvion</h2>
+				<button ng-click="loadCases()">{{cases === null ? "wczytaj dane" : "odśwież"}}</button>
+			</div>
+		
+		
+		<!-- MAIN TABLE MAIN TABLE MAIN TABLE MAIN TABLE -->
+
+			<div class="table-head">
+				<input type="search" ng-model="x" placeholder="filtruj..." aria-label="filtr spraw" />
+				<div class="count">
+					wczytane: {{results.length ? results.length : "0"}}
+				</div>
 			</div>
 		</div>
+		<!-- LOADING SPINNER LOADING SPINNER LOADING SPINNER -->
+
+		<div id="loader" ng-show="loading"></div>
+
+		<!-- MASTER DETAIL MASTER DETAIL MASTER DETAIL -->
+
 		<ul class="list">
 			<li ng-repeat="case in cases | filter:x as results">
 				<div class="master">
-					<div class="id"><div>{{ case.Id }}</div></div>
+					<div ng-repeat="(key, value) in this.case" ng-if="$index <= 4">
+						<cases-list/>
+					</div>
 					<button ng-click="visible = !visible">szczegóły</button>
 				</div>
-				<div class="detail" ng-show="visible" ng-repeat="(key, value) in cases[$index]">
-					<div>{{ key }} : {{ value === null ? "Brak danych" : value }}</div>
+				<div class="detail" ng-if="visible && $index > 4" ng-repeat="(key, value) in this.case">
+					<cases-list/>
 				</div>
 			</li>
 			<h1 class="noresults" ng-if="results.length == 0">
 				brak wyników...
 			</h1>
 		</ul>
+		<div class="push"></div>
 	</div>
 
+	<div class="footer">
+		<p>Copyright &copy; 2016 Michał Kubrycz</p>
+	</div>
 
 </body>
 </html>

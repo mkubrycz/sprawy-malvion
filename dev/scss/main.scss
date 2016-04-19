@@ -1,26 +1,71 @@
 @import 'reset';
+@import 'loader';
 
-$font-stack: 'Arimo', sans-serif;
+$generic-font: Courier, Monaco, monospace;
+$font-stack: 'Merriweather', serif;
 $font-header: 'Lobster', serif; 
 $primary-color: #333;
-$light-border: 1px solid #ddd;
+$white: #feffff;
+$lightgrey: #ccc;
+$red: #d65a6a;
+$light-border: 2px solid #ccc;
+
+html, body {
+	height: 100%;
+}
 
 body {
 	padding: 0;
 	font-family: $font-stack;
 	color: $primary-color;
+	background-color: $white;
 }
 
+::-webkit-input-placeholder {
+	color: $white;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
+}
+
+
 .header {
+	position: relative;
 	width: 100%;
-	min-height: 150px;
+	min-height: 190px;
 	text-align: center;
-	border-bottom: $light-border;
+	background-color: #B4CCD7;
+	background-image: url('../img/gradient.png');
+	background-repeat: repeat-x;
+	padding-top: 15px;
+	color: $white;
+	box-shadow: -5px 0 50px #666;
+
+	button {
+		font-family: $font-stack;
+		color: #B4CCD7;
+		width: 130px;
+		height: 30px;
+		border: none;
+		background-color: $white;
+		border-radius: 15px;
+		margin-top: 10px;
+		transition: all 0.5s;
+  		cursor: pointer;
+	}
+	button:hover {
+		background: none;
+		color: $red;
+	}
 }
 
 h2 {
 	font-family: $font-header;
-	margin: 15px 0;
+	margin: 10px 0;
 }
 
 h1 {
@@ -30,19 +75,42 @@ h1 {
 
 .table-head {
 	width: 100%;
-	height: 30px;
-	border-bottom: $light-border;
+	height: 40px;
+	padding: 10px 0;
+
+	* {
+		display: inline-block;
+	}
 
 	input {
-		display: inline-block;
-		margin: 5px;
+		float: left;
+		border: none;
+		padding: 0 10px;
+		margin-left: 10px;
+		font-family: $font-stack;
+		font-size: 1em;
+		height: 100%;
+		background: none;
+		color: $white;
+		border-radius: 22px;
+		transition: all 0.5s;
+
 	}
-
+	input:focus {
+		background-color: $white;
+		color: $primary-color;
+		//box-shadow: inset -3px -3px 37px -7px rgba(136,136,136,0.66);
+	}
+	input:hover {
+		@extend input:focus;
+	}
 	.count {
-		@extend input;
-
+		float: right;
+		margin: 12px 20px;
 	}
 }
+
+// LOADING SPINNER LOADING SPINNER LOADING SPINNER
 
 .id {
 	display: inline-block;
@@ -56,22 +124,62 @@ h1 {
 	div {
 		color: #eee;
 		margin-top: 6px;
-		font-weight: bolder;
 	}
 }
+
+// MASTER DETAIL MASTER DETAIL MASTER DETAIL MASTER DETAIL
 
 .list {
 	max-width: 1200px;
 	margin: 0 auto;
 
 	li {
-		border-bottom: $light-border;
+		
 		@extend .list;
 	}
 
 	.noresults {
 		width: 100%;
 		text-align: center;
-		color: #ddd;
+		color: $lightgrey;
+	}
+}
+
+.master {
+	height: 40px;
+
+
+	* {
+		display: inline-block;
+		color: $lightgrey;
+	}
+
+	button {
+		float: right;
+	}
+}
+
+.detail {
+	font-family: $generic-font;
+	font-size: 0.8em;
+
+	div {
+
+
+		.inobject {
+			padding: 0 20px;
+			border-left: 1px solid $lightgrey;
+			display: inline-block;
+		}
+	}
+}
+
+.footer, .push {
+	color: $lightgrey;
+	height: 4em;
+	p {
+		font-size: 0.8em;
+		text-align:  center;
+		padding: 20px 0;
 	}
 }

@@ -8,7 +8,8 @@ var gulp = require('gulp'),
   sass = require('gulp-ruby-sass'),
   concat = require('gulp-concat'),
   connect = require('gulp-connect'),
-  ngmin = require('gulp-ngmin');
+  ngmin = require('gulp-ngmin'),
+  autoprefixer = require('gulp-autoprefixer');
 
 // gulp tasks declaration
 
@@ -28,17 +29,29 @@ gulp.task('script', function() {
 	.pipe(ngmin())
 	.pipe(jshint())
 	.pipe(rename({suffix: '.min'}))
-	.pipe(gulp.dest('app/js'))
+	.pipe(gulp.dest('app/js/'))
 });
 
 gulp.task('sass', function() {
 	return sass('dev/scss/*.scss', {style: 'compressed'})
-	.pipe(rename({suffix: '.min'}))
-	.pipe(gulp.dest('app/css'))
+	.pipe(rename({suffix: '.dev'}))
+	.pipe(gulp.dest('dev/scss/'))
+});
+
+
+gulp.task('autoprefixer', function () {
+	return gulp
+	.src('dev/scss/*.css')
+	.pipe(autoprefixer({
+		browsers: ['last 2 versions'],
+		cascade: false
+	}))
+	.pipe(rename('main.min.css'))
+	.pipe(gulp.dest('app/css/'));
 });
 
 gulp.task('clean', function() {
-	del(['app/css/*.min.css', 'app/js/*.min.js']).then(paths => {
+	del(['app/css/*.min.css', 'app/js/*.min.js', 'dev/scss/*.min.css']).then(paths => {
 		console.log('Files and folders that were deleted:\n', paths.join('\n'));
 	});
 });
@@ -62,12 +75,13 @@ gulp.task('live', function() {
 gulp.task('watch', function() {
 	gulp.watch('dev/scss/*.scss', ['sass']);
 	gulp.watch('dev/js/*.js', ['script']);
+	gulp.watch('dev/scss/*.css', ['autoprefixer']);
 	gulp.watch(['app/css/*.css', 'app/*.html', 'app/js/*.min.js'], ['live']);
 });
 
 // combined tastks, call 'gulp'	
 
-gulp.task('default', ['clean', 'sass', 'script', 'connect', 'watch']);
+gulp.task('default', ['clean', 'sass', 'autoprefixer', 'script', 'connect', 'watch']);
 
 // simple testing task
 gulp.task('test', ['connect', 'watch']);
