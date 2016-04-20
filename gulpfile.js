@@ -34,21 +34,21 @@ gulp.task('script', function() {
 
 gulp.task('sass', function() {
 	return sass('dev/scss/*.scss', {style: 'compressed'})
-	.pipe(rename({suffix: '.dev'}))
-	.pipe(gulp.dest('dev/scss/'))
+	.pipe(rename({suffix: '.min'}))
+	.pipe(gulp.dest('app/css/'))
 });
 
 
-gulp.task('autoprefixer', function () {
-	return gulp
-	.src('dev/scss/*.css')
-	.pipe(autoprefixer({
-		browsers: ['last 2 versions'],
-		cascade: false
-	}))
-	.pipe(rename('main.min.css'))
-	.pipe(gulp.dest('app/css/'));
-});
+// gulp.task('autoprefixer', function () {
+// 	return gulp
+// 	.src('dev/scss/*.css')
+// 	.pipe(autoprefixer({
+// 		browsers: ['last 2 versions'],
+// 		cascade: false
+// 	}))
+// 	.pipe(rename('main.min.css'))
+// 	.pipe(gulp.dest('app/css/'));
+// });
 
 gulp.task('clean', function() {
 	del(['app/css/*.min.css', 'app/js/*.min.js', 'dev/scss/*.min.css']).then(paths => {
@@ -75,13 +75,13 @@ gulp.task('live', function() {
 gulp.task('watch', function() {
 	gulp.watch('dev/scss/*.scss', ['sass']);
 	gulp.watch('dev/js/*.js', ['script']);
-	gulp.watch('dev/scss/*.css', ['autoprefixer']);
+	//gulp.watch('dev/scss/*.css', ['autoprefixer']);
 	gulp.watch(['app/css/*.css', 'app/*.html', 'app/js/*.min.js'], ['live']);
 });
 
 // combined tastks, call 'gulp'	
 
-gulp.task('default', ['clean', 'sass', 'autoprefixer', 'script', 'connect', 'watch']);
+gulp.task('default', ['clean', 'sass', 'script', 'connect', 'watch']);
 
 // simple testing task
 gulp.task('test', ['connect', 'watch']);

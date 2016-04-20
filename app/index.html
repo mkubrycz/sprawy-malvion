@@ -2,9 +2,9 @@
 <html lang="en" ng-app="casesApp">
 <head>
 	<meta charset="UTF-8">
-	<title>:8080</title>
+	<title>Sprawy</title>
 
-	<link href='https://fonts.googleapis.com/css?family=Lobster|Merriweather:700,900' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lobster|Lato:300,900' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/main.min.css">
 
 	<script src="../node_modules/angular/angular.js"></script>
@@ -41,25 +41,27 @@
 
 		<ul class="list">
 			<li ng-repeat="case in cases | filter:x as results">
-				<div class="master">
-					<div ng-repeat="(key, value) in this.case" ng-if="$index <= 4">
+				<div class="master" ng-click="visible = !visible">
+					<div class="record" ng-repeat="(key, value) in this.case" ng-if="$index <= 4">
 						<cases-list/>
 					</div>
-					<button ng-click="visible = !visible">szczegóły</button>
+					<div class="wrap">{{ visible ? "zwiń" : "rozwiń" }}</div>
 				</div>
-				<div class="detail" ng-if="visible && $index > 4" ng-repeat="(key, value) in this.case">
-					<cases-list/>
+				<div class="detail" ng-if="visible">
+					<div class="record" ng-if="$index > 4" ng-repeat="(key, value) in this.case">
+						<cases-list/>
+					</div>
 				</div>
 			</li>
-			<h1 class="noresults" ng-if="results.length == 0">
-				brak wyników...
-			</h1>
+			<div class="noresults" ng-if="results.length == 0">
+				<h1>brak wyników...</h1>
+			</div>
 		</ul>
 		<div class="push"></div>
 	</div>
 
 	<div class="footer">
-		<p>Copyright &copy; 2016 Michał Kubrycz</p>
+		<p>Copyright &copy; 2016 <a href="https://pl.linkedin.com/in/michalkubrycz" target="_blank">Michał Kubrycz</a></p>
 	</div>
 
 </body>

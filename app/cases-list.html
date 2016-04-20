@@ -1,19 +1,20 @@
-<div>{{ key + " : " }}
-	<span ng-if="value && key != 'Dluznicy' && key != 'OsobaProwadzaca' ">{{ value }}</span>
+<div>
+	<div class="key">{{ key + " : " }}</div>
+	<div class="nextline" ng-if="!isEmpty(value) && key == 'Dluznicy' || !isEmpty(value) && key == 'OsobaProwadzaca'"></div>
+	<div class="value" ng-if="!isEmpty(value) && key != 'Dluznicy' && key != 'OsobaProwadzaca' ">{{ value }}</div>
 	<div class="inobject" ng-if="key == 'Dluznicy'" ng-repeat="dluznik in this.case['Dluznicy']">
-		<div ng-repeat="(k, v) in this.case['Dluznicy'][$index]">{{ k + " : " }}
-			<span ng-if="v">{{ v }}</span>
-			<span ng-if="v === 'undefined' || v === null || v === []">Brak danych</span>
-			<span ng-if="v === false">false</span>
+		<div class="record" ng-repeat="(k, v) in this.case['Dluznicy'][$index]">
+			<div class="key">{{ k + " : " }}</div>
+			<div class="value" ng-if="!isEmpty(v)">{{ v }}</div>
+			<div class="value" ng-if="isEmpty(v)">Brak danych</div>
 		</div>
 	</div>
-	<div class="inobject">
-		<div ng-if="key == 'OsobaProwadzaca'" ng-repeat="(a, b) in this.case['OsobaProwadzaca']">{{ a + " : " }}
-			<span ng-if="b">{{ b }}</span>
-			<span ng-if="b === 'undefined' || b === null || b === []">Brak danych</span>
-			<span ng-if="b === false">false</span>
+	<div class="inobject" ng-if="key == 'OsobaProwadzaca' && !isEmpty(value)">
+		<div class="record" ng-repeat="(a, b) in this.case['OsobaProwadzaca']">
+			<div class="key">{{ a + " : " }}</div>
+			<div class="value" ng-if="!isEmpty(b)">{{ b }}</div>
+			<div class="value" ng-if="isEmpty(b)">Brak danych</div>
 		</div>
 	</div>
-	<span ng-if="value === 'undefined' || value === null || value === []">Brak danych</span>
-	<span ng-if="value === false">false</span>
+	<div class="value" ng-if="isEmpty(value)">Brak danych</div>
 </div>
