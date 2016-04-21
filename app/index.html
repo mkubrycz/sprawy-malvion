@@ -41,17 +41,22 @@
 
 		<ul class="list">
 			<li ng-repeat="case in cases | filter:x as results">
+
 				<div class="master" ng-click="visible = !visible">
-					<div class="record" ng-repeat="(key, value) in this.case" ng-if="$index <= 4">
-						<cases-list/>
+					<div>
+						<div class="record" ng-repeat="(key, value) in this.case" ng-if="$index <= 4">
+							<cases-list/>
+						</div>
 					</div>
 					<div class="wrap">{{ visible ? "zwiń" : "rozwiń" }}</div>
 				</div>
+
 				<div class="detail" ng-if="visible">
 					<div class="record" ng-if="$index > 4" ng-repeat="(key, value) in this.case">
 						<cases-list/>
 					</div>
 				</div>
+
 			</li>
 			<div class="noresults" ng-if="results.length == 0">
 				<h1>brak wyników...</h1>
