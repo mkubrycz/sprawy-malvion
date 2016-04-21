@@ -1,6 +1,7 @@
 @import 'reset';
 @import 'loader';
 @import 'media';
+@import 'animate';
 
 $generic-font: Courier, Monaco, monospace;
 $font-stack: 'Lato', sans-serif;
@@ -79,10 +80,10 @@ body {
 		transition: all 0.3s;
   		cursor: pointer;
 	}
-	button:hover {
-		background: none;
-		color: $red;
-	}
+	// button:hover {
+	// 	background: none;
+	// 	color: $red;
+	// }
 }
 
 h2 {

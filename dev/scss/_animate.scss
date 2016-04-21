@@ -1,0 +1,16 @@
+@keyframes slidedown {
+	from {top: -1000px;}
+	to {top: 0;}
+}
+
+@-webkit-keyframes slidedown {
+	from {top: -1000px;}
+	to {top: 0;}
+}
+
+.list, {
+	-webkit-animation: slidedown 2s; /* Chrome, Safari, Opera */
+    animation: slidedown 2s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+}
