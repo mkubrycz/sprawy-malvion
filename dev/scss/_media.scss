@@ -8,5 +8,10 @@
 
 
 @media (max-width: 420px) {
-	
+	.table-head {
+		input {
+			max-width: 50%;
+		}
+
+	}
 }
