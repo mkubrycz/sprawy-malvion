@@ -13,26 +13,22 @@ $light-border: 2px solid #ccc;
 
 @mixin shadow() {
 	-webkit-box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
-	-moz-box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
 	box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
 }
 
 @mixin moz-shadow() {
 	-webkit-box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,0.5),  inset 0px 80px 80px -120px rgba(51,51,51,0.5);
-	-moz-box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,0.5),  inset 0px 80px 80px -120px rgba(51,51,51,0.5);
 	box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,0.5),  inset 0px 80px 80px -120px rgba(51,51,51,0.5);
 }
 
 @mixin dark-shadow() {
-	-webkit-box-shadow: inset 0px 0px 100px -15px rgba(51,51,51,1);
-	-moz-box-shadow: inset 0px 0px 100px -15px rgba(51,51,51,1);
-	box-shadow: inset 0px 0px 100px -15px rgba(51,51,51,1);
+	-webkit-box-shadow: inset 0px 10px 200px -100px rgba(51,51,51,0.7);
+	box-shadow: inset 0px 10px 200px -100px rgba(51,51,51,0.7);
 }
 
-@mixin detail-shadow() {
-	-webkit-box-shadow: inset 0px 10px 200px -100px rgba(51,51,51,0.7);
-	-moz-box-shadow: inset 0px 10px 200px -100px rgba(51,51,51,0.7);
-	box-shadow: inset 0px 10px 200px -100px rgba(51,51,51,0.7);
+@mixin moz-dark-shadow() {
+	-webkit-box-shadow: inset 0px 10px 100px -100px rgba(51,51,51,0.7);
+	box-shadow: inset 0px 10px 100px -100px rgba(51,51,51,0.7);
 }
 
 html, body {
@@ -46,9 +42,8 @@ body {
 	background-color: $white;
 }
 ::-webkit-input-placeholder { color:$white; }
-::-moz-placeholder { color:$white; } /* firefox 19+ */
+::-moz-placeholder { color:$white; opacity: 1; } /* firefox 19+ */
 :-ms-input-placeholder { color:$white; } /* ie */
-input:-moz-placeholder { color:$white; }
 
 .wrapper {
 	min-height: 100%;
@@ -59,6 +54,7 @@ input:-moz-placeholder { color:$white; }
 
 
 .header {
+	z-index: 1;
 	position: relative;
 	width: 100%;
 	min-height: 190px;
@@ -97,6 +93,12 @@ h2 {
 h1 {
 	@extend h2;
 	font-size: 3em;
+}
+
+@-moz-document url-prefix() {
+	.header {
+		@include moz-dark-shadow();
+	}
 }
 
 .table-head {
@@ -160,7 +162,6 @@ h1 {
 	max-width: 1200px;
 	margin: 0 auto;
 	-webkit-box-shadow: 0px 0px 90px -10px rgba(51,51,51,0.5);
-	-moz-box-shadow: 0px 0px 90px -10px rgba(51,51,51,0.5);
 	box-shadow: 0px 0px 90px -10px rgba(51,51,51,0.5);
 
 	.noresults {
@@ -196,7 +197,6 @@ h1 {
 	}
 
 	.wrap {
-		display: inline-block;
 		position: absolute;
 		float: right;
 		right: 50px;
@@ -212,6 +212,7 @@ h1 {
 		border-right: 1px solid #777;
 	}
 }
+
 @-moz-document url-prefix() {
 	.master {
 		@include moz-shadow();
@@ -224,9 +225,13 @@ h1 {
 	font-size: 0.8em;
 	line-height: 1.2em;
 	background-color: #33425a;
+	background-image: radial-gradient(
+			#405472,
+			#303e56 110%
+		);
 	color: $white;
 	padding: 10px;
-	@include detail-shadow();
+	@include dark-shadow();
 
 	.record {
 		
@@ -242,6 +247,9 @@ h1 {
 			display: inline-block;
 			clear: right;
 			color: $red;
+			word-wrap: break-word;
+			white-space: pre-wrap;
+			white-space: -pre-wrap;
 		}
 
 		.inobject {
@@ -256,6 +264,12 @@ h1 {
 				color: #4fc6bb;
 			}
 		}
+	}
+}
+
+@-moz-document url-prefix() {
+	.detail {
+		@include moz-dark-shadow();
 	}
 }
 
