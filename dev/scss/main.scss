@@ -12,14 +12,14 @@ $lightgrey: #ccc;
 $red: #f85b68;
 $light-border: 2px solid #ccc;
 
-@mixin shadow() {
-	-webkit-box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
-	box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
+@mixin shadow($opacity) {
+	-webkit-box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,$opacity), inset 0px 80px 80px -104px rgba(51,51,51,$opacity);
+	box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,$opacity), inset 0px 80px 80px -104px rgba(51,51,51,$opacity);
 }
 
-@mixin moz-shadow() {
-	-webkit-box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,0.5),  inset 0px 80px 80px -120px rgba(51,51,51,0.5);
-	box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,0.5),  inset 0px 80px 80px -120px rgba(51,51,51,0.5);
+@mixin moz-shadow($opacity) {
+	-webkit-box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,$opacity),  inset 0px 80px 80px -120px rgba(51,51,51,$opacity);
+	box-shadow: inset 0px 5px 120px -80px rgba(51,51,51,$opacity),  inset 0px 80px 80px -120px rgba(51,51,51,$opacity);
 }
 
 @mixin dark-shadow() {
@@ -80,10 +80,10 @@ body {
 		transition: all 0.3s;
   		cursor: pointer;
 	}
-	// button:hover {
-	// 	background: none;
-	// 	color: $red;
-	// }
+	button:hover {
+		background: none;
+		color: $red;
+	}
 }
 
 h2 {
@@ -183,8 +183,8 @@ h1 {
 	padding-top: 42px;
 	padding-right: 100px;
 	cursor: pointer;
-	-webkit-box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
-	box-shadow: inset 0px 5px 220px -80px rgba(51,51,51,0.5), inset 0px 80px 80px -104px rgba(51,51,51,0.5);
+	transition: 1s;
+	@include shadow(0.5);
 
 	* {
 		display: inline-block;
@@ -207,6 +207,8 @@ h1 {
 	}
 }
 .master:hover {
+	@include shadow(0.9);
+
 	.wrap {
 		color: $red;
 	}
@@ -217,7 +219,10 @@ h1 {
 
 @-moz-document url-prefix() {
 	.master {
-		@include moz-shadow();
+		@include moz-shadow(0.5);
+	}
+	.master:hover {
+		@include moz-shadow(0.9);
 	}
 }
 
